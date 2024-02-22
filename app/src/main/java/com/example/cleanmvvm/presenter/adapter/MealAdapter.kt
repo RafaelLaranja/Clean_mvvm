@@ -4,18 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cleanmvvm.databinding.ItemRvBinding
-import com.example.cleanmvvm.domain.model.mealCategory
+import com.example.cleanmvvm.domain.model.MealCategory
+import com.squareup.picasso.Picasso
 
-class MealAdapter(private val meals: List<mealCategory>)
+class MealAdapter(private val meals: List<MealCategory>)
     : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
     inner class MealViewHolder(private val binding: ItemRvBinding)
         : RecyclerView.ViewHolder(binding.root){
-            fun bind(meal: mealCategory){
+            fun bind(meal: MealCategory){
                 binding.apply {
+                    Picasso.get()
+                        .load(meal.Image)
+                        .into(binding.ivImage)
 
-
-
+                    binding.tvCategory.text = meal.category
                 }
             }
         }

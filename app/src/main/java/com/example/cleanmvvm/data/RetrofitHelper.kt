@@ -1,10 +1,11 @@
-package com.example.cleanmvvm.data.api
+package com.example.cleanmvvm.data
 
+import com.example.cleanmvvm.data.api.MealApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
-    private const val BASE_URL = "www.themealdb.com/api/json/v1/1/"
+    private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
 
 
      val retrofit: Retrofit by lazy {

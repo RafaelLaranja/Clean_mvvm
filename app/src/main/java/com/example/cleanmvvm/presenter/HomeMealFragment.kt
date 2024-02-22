@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cleanmvvm.databinding.FragmentHomeMealBinding
@@ -12,10 +13,8 @@ import com.example.cleanmvvm.presenter.adapter.MealAdapter
 
 class HomeMealFragment : Fragment() {
 
-    private  var binding = FragmentHomeMealBinding.inflate(layoutInflater)
-
+    private  lateinit var binding: FragmentHomeMealBinding
     private lateinit var rvMeal: RecyclerView
-
     private lateinit var viewModel: HomeMealViewModel
 
     // Método chamado para inflar o layout do Fragment
@@ -24,6 +23,7 @@ class HomeMealFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Infla o layout do Fragment
+        binding = FragmentHomeMealBinding.inflate(inflater, container,false)
         return binding.root
     }
 
@@ -32,9 +32,18 @@ class HomeMealFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvMeal = binding.RVmeals
-
         rvMeal.layoutManager = GridLayoutManager(requireContext(),2)
 
-        val mealAdapter = MealAdapter()
+        viewModel = ViewModelProvider(this)[HomeMealViewModel::class.java]//Get
+
+
+        // obter a lista de MealCategory do ViewModel
+        viewModel.mealCategories.observe(viewLifecycleOwner){categories ->
+        val mealAdapter = MealAdapter(categories)
+        rvMeal.adapter = mealAdapter
+        }
+
+        viewModel.recuperarObjetos()
+
     }
 }
