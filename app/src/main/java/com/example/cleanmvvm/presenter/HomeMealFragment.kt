@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cleanmvvm.databinding.FragmentHomeMealBinding
 import com.example.cleanmvvm.presenter.adapter.MealAdapter
@@ -32,7 +33,7 @@ class HomeMealFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvMeal = binding.RVmeals
-        rvMeal.layoutManager = GridLayoutManager(requireContext(),2)
+        rvMeal.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel = ViewModelProvider(this)[HomeMealViewModel::class.java]//Get
 
